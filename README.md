@@ -8,7 +8,7 @@ To run the LapBuddy frontend locally, follow these steps:
 
 1. Clone this repository to your local machine.
    ```bash
-   git clone (https://github.com/LapBuddy/trackbuddy-frontend.git)
+   git clone https://github.com/LapBuddy/trackbuddy-frontend.git
 
 2. Navigate into the cloned repository.
     ```bash
