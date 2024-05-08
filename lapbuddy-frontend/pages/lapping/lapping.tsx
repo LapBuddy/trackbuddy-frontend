@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from '../../Interface/navbar/navbar'
 
 export default function lapping() {
   return (
     <div>
-      rfc page
+        <Navbar />
+      Lapping page
     </div>
   )
 }
