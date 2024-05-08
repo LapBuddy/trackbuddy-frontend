@@ -1,7 +1,0 @@
-{
-  "parser": "@next/next/eslint-plugin-next",
-  "extends": [
-    "eslint:recommended",
-    "plugin:@next/next/recommended"
-  ]
-}

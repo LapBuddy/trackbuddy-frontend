@@ -1,6 +1,6 @@
-import React from 'react'
-import Navbar from '../../Interface/navbar/navbar'
-import { BentoGrid, BentoGridItem } from "../../Interface/aceternity/bentoGrid/bento-grid";
+import { cn } from "@/app/utils/cn";
+import React from "react";
+import { BentoGrid, BentoGridItem } from "./bento-grid";
 import {
   IconArrowWaveRightUp,
   IconBoxAlignRightFilled,
@@ -11,13 +11,9 @@ import {
   IconTableColumn,
 } from "@tabler/icons-react";
 
-export default function HomePage() {
-    return (
-        <div>
-            <Navbar />
-            <h1>Home Page</h1>
-
-            <BentoGrid className="max-w-4xl mx-auto">
+export function BentoGridDemo() {
+  return (
+    <BentoGrid className="max-w-4xl mx-auto">
       {items.map((item, i) => (
         <BentoGridItem
           key={i}
@@ -29,12 +25,8 @@ export default function HomePage() {
         />
       ))}
     </BentoGrid>
-
-    
-        </div>
-      )
+  );
 }
-
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
 );

@@ -1,11 +1,11 @@
+import Navbar from '@/app/navbar/navbar'
 import React from 'react'
-import Navbar from '../../Interface/navbar/navbar'
 
 export default function setups() {
   return (
     <div>
         <Navbar />
-      setups page
+      setups
     </div>
   )
 }
