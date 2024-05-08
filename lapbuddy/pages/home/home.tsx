@@ -10,11 +10,13 @@ import {
   IconSignature,
   IconTableColumn,
 } from "@tabler/icons-react";
+import { LampDemo } from '@/app/lamp/lamp';
 
 export default function HomePage() {
     return (
         <div>
-            <Navbar />
+
+            <LampDemo />
 
             <BentoGrid className="max-w-4xl mx-auto">
       {items.map((item, i) => (
