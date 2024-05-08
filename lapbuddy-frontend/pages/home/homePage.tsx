@@ -17,7 +17,6 @@ export default function HomePage() {
             <Navbar />
             <h1>Home Page</h1>
 
-
             <BentoGrid className="max-w-4xl mx-auto">
       {items.map((item, i) => (
         <BentoGridItem
