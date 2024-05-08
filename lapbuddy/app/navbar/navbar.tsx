@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
+import "./navbar.css"
 
 export default function navbar() {
   return (
-    <div>
+    <div className="navbar">
       <ul>
           <li>
             <Link href="/">Home</Link>
