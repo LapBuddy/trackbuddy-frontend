@@ -1,6 +1,11 @@
 "use client";
-import React, { useState } from 'react'
-import { HoveredLink, Menu, MenuItem, ProductItem } from '../../app/navbar/navbar-menu'
+import React, { useState } from "react";
+import {
+  HoveredLink,
+  Menu,
+  MenuItem,
+  ProductItem,
+} from "../../app/navbar/navbar-menu";
 import { BentoGrid, BentoGridItem } from "../../app/bentoGrid/bento-grid";
 import {
   IconArrowWaveRightUp,
@@ -11,37 +16,92 @@ import {
   IconSignature,
   IconTableColumn,
 } from "@tabler/icons-react";
-import { LampDemo } from '@/app/lamp/lamp';
-import { cn } from '@/app/utils/cn';
+import { LampDemo } from "@/app/lamp/lamp";
+import { cn } from "@/app/utils/cn";
+import { InfiniteMovingCards } from "@/app/moving-cards/infinite-moving-cards";
 
 export default function HomePage() {
-    return (
-        <div>
-              <Navbar className="top-2" />
-            <LampDemo />
+  return (
+    <div>
+      <Navbar className="top-2" />
+      <LampDemo />
 
-            <BentoGrid className="max-w-4xl mx-auto">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          icon={item.icon}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-        />
-      ))}
-    </BentoGrid>
+      <h1
+        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text 
+       text-center text-4xl font-medium tracking-tight text-transparent md:text-5xl mb-4"
+      >
+        Lap Analysis
+      </h1>
 
-    
-        </div>
-      )
+      <BentoGrid className="max-w-4xl mx-auto">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            icon={item.icon}
+            className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+          />
+        ))}
+      </BentoGrid>
+
+      <h1
+        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text 
+       text-center text-4xl font-medium tracking-tight text-transparent md:text-5xl mb-4"
+      >
+        Interesting topics
+      </h1>
+
+      <InfiniteMovingCards
+        items={testimonials}
+        direction="right"
+        speed="slow"
+      />
+      <br />
+    </div>
+  );
 }
 
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
 );
+
+const testimonials = [
+  //these props can we changed to be dynamic with an API call, these items are for the infinite carousel
+  {
+    quote:
+      "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
+    name: "Charles Dickens",
+    title: "A Tale of Two Cities",
+  },
+  {
+    quote:
+      "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
+    name: "William Shakespeare",
+    title: "Hamlet",
+  },
+  {
+    quote: "All that we see or seem is but a dream within a dream.",
+    name: "Edgar Allan Poe",
+    title: "A Dream Within a Dream",
+  },
+  {
+    quote:
+      "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+    name: "Jane Austen",
+    title: "Pride and Prejudice",
+  },
+  {
+    quote:
+      "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+    name: "Herman Melville",
+    title: "Moby-Dick",
+  },
+];
+
 const items = [
+  //these props can we changed to be dynamic with an API call, these items are for the BentoGrid
   {
     title: "The Dawn of Innovation",
     description: "Explore the birth of groundbreaking ideas and inventions.",
@@ -91,14 +151,14 @@ function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   return (
     <div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className) }
+      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
     >
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Sections">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="#lamp">Home</HoveredLink>
-            <HoveredLink href="#bento">Blog</HoveredLink>
-            <HoveredLink href="/seo">Lap Analysis</HoveredLink>
+            <HoveredLink href="#bento">Lap Analysis</HoveredLink>
+            <HoveredLink href="/seo">Blog</HoveredLink>
             <HoveredLink href="/branding">Tuning Setups</HoveredLink>
           </div>
         </MenuItem>
@@ -134,7 +194,9 @@ function Navbar({ className }: { className?: string }) {
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/setups/setups">My Account</HoveredLink>
             <HoveredLink href="/authentication/signin">Log in</HoveredLink>
-            <HoveredLink href="/authentication/signup">Create an account</HoveredLink>
+            <HoveredLink href="/authentication/signup">
+              Create an account
+            </HoveredLink>
             <HoveredLink href="/enterprise">Logout</HoveredLink>
           </div>
         </MenuItem>
