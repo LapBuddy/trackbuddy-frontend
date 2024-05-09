@@ -1,19 +1,19 @@
 "use client";
 import React from "react";
 import { cn } from '@/app/utils/cn';
-import {
-  IconBrandGithub,
-  IconBrandGoogle,
-  IconBrandOnlyfans,
-} from "@tabler/icons-react";
 import { Label } from "@/app/login/label";
 import { Input } from "@/app/login/input";
 import "./auth.css";
+import { postLogin } from "@/api/auth";
 
-export default function SignupFormDemo() {
+export default function SigninForm() {
+
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    postLogin(username, password);
   };
   return (
 <div className="max-w-md w-full mx-auto mt-10 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
@@ -28,12 +28,12 @@ export default function SignupFormDemo() {
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
         </div>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="superFastDriver@gmail.com" type="email" />
+          <Label htmlFor="username">Username</Label>
+          <Input id="username" placeholder="superFastDriverName" type="username" value={username} onChange={(e) => setUsername(e.target.value)} />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input id="password" placeholder="••••••••" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
         </LabelInputContainer>
 
         <button
