@@ -1,5 +1,6 @@
-import React from 'react'
-import Navbar from '../../app/navbar/navbar'
+"use client";
+import React, { useState } from 'react'
+import { HoveredLink, Menu, MenuItem, ProductItem } from '../../app/navbar/navbar-menu'
 import { BentoGrid, BentoGridItem } from "../../app/bentoGrid/bento-grid";
 import {
   IconArrowWaveRightUp,
@@ -11,11 +12,12 @@ import {
   IconTableColumn,
 } from "@tabler/icons-react";
 import { LampDemo } from '@/app/lamp/lamp';
+import { cn } from '@/app/utils/cn';
 
 export default function HomePage() {
     return (
         <div>
-
+              <Navbar className="top-2" />
             <LampDemo />
 
             <BentoGrid className="max-w-4xl mx-auto">
@@ -84,3 +86,59 @@ const items = [
     icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
   },
 ];
+
+function Navbar({ className }: { className?: string }) {
+  const [active, setActive] = useState<string | null>(null);
+  return (
+    <div
+      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className) }
+    >
+      <Menu setActive={setActive}>
+        <MenuItem setActive={setActive} active={active} item="Sections">
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="#lamp">Home</HoveredLink>
+            <HoveredLink href="#bento">Blog</HoveredLink>
+            <HoveredLink href="/seo">Lap Analysis</HoveredLink>
+            <HoveredLink href="/branding">Tuning Setups</HoveredLink>
+          </div>
+        </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Products">
+          <div className="  text-sm grid grid-cols-2 gap-10 p-4">
+            <ProductItem
+              title="Algochurn"
+              href="https://algochurn.com"
+              src=""
+              description="Prepare for tech interviews like never before."
+            />
+            <ProductItem
+              title="Tailwind Master Kit"
+              href="https://tailwindmasterkit.com"
+              src=""
+              description="Production ready Tailwind css components for your next project"
+            />
+            <ProductItem
+              title="Moonbeam"
+              href="https://gomoonbeam.com"
+              src=""
+              description="Never write from scratch again. Go from idea to blog in minutes."
+            />
+            <ProductItem
+              title="Rogue"
+              href="https://userogue.com"
+              src=""
+              description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
+            />
+          </div>
+        </MenuItem>
+        <MenuItem setActive={setActive} active={active} item="Account">
+          <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="/setups/setups">My Account</HoveredLink>
+            <HoveredLink href="/authentication/signin">Log in</HoveredLink>
+            <HoveredLink href="/authentication/signup">Create an account</HoveredLink>
+            <HoveredLink href="/enterprise">Logout</HoveredLink>
+          </div>
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+}
