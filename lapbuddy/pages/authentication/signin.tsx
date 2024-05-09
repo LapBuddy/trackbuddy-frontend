@@ -6,15 +6,20 @@ import { Input } from "@/app/login/input";
 import "./auth.css";
 import { postLogin } from "@/api/auth";
 import { useSnackbar } from "notistack";
+import { useRouter } from 'next/navigation'
 
 export default function SigninForm() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    postLogin(username, password, enqueueSnackbar);
+    const res = await postLogin(username, password, enqueueSnackbar);
+    if (res.status == 200) {
+      router.push('/');
+    }
   };
   return (
     <div className="max-w-md w-full mx-auto mt-10 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">

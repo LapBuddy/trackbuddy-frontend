@@ -13,6 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { LampDemo } from '@/app/lamp/lamp';
 import { cn } from '@/app/utils/cn';
+import { postLogout } from '@/api/auth';
 
 export default function HomePage() {
     return (
@@ -135,7 +136,7 @@ function Navbar({ className }: { className?: string }) {
             <HoveredLink href="/setups/setups">My Account</HoveredLink>
             <HoveredLink href="/authentication/signin">Log in</HoveredLink>
             <HoveredLink href="/authentication/signup">Create an account</HoveredLink>
-            <HoveredLink href="/enterprise">Logout</HoveredLink>
+            <HoveredLink href="/" onClick={postLogout}>Logout</HoveredLink>
           </div>
         </MenuItem>
       </Menu>
