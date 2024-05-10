@@ -4,11 +4,25 @@ import { cn } from '@/app/utils/cn';
 import { Label } from "@/app/login/label";
 import { Input } from "@/app/login/input";
 import "./auth.css";
+import { postSignup } from "@/api/auth";
+import { enqueueSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
-export default function SignupFormDemo() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function SignupForm() {
+  const [username, setUsername] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    const res = await postSignup(username, firstName, lastName, email, password, enqueueSnackbar);
+    if (res.status == 200) {
+        router.push('/');
+    }
   };
   return (
 <div className="max-w-md w-full mx-auto mt-10 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
@@ -17,26 +31,38 @@ export default function SignupFormDemo() {
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         Create an account to start tracking your data
+
       </p>
 
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
+            <Label htmlFor="firstname">Username</Label>
+            <Input id="username" placeholder="baconMan" type="text" value={username}
+            onChange={(e) => setUsername(e.target.value)}/>
+          </LabelInputContainer>
+        </div>
+        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+          <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Input id="firstname" placeholder="John" type="text" value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}/>
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Input id="lastname" placeholder="Pork" type="text" value={lastName}
+            onChange={(e) => setLastName(e.target.value)}/>
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input id="email" placeholder="slowGTI@matt.com" type="email" value={email}
+            onChange={(e) => setEmail(e.target.value)}/>
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input id="password" placeholder="••••••••" type="password" value={password}
+            onChange={(e) => setPassword(e.target.value)}/>
         </LabelInputContainer>
 
         <button
@@ -48,7 +74,6 @@ export default function SignupFormDemo() {
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
-
         <div className="flex flex-col space-y-4">
         </div>
       </form>
