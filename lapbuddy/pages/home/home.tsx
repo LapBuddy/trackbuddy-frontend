@@ -94,7 +94,9 @@ function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
-  const token = localStorage.getItem('token');
+  
+  const isBrowser = typeof window !== 'undefined';
+  const token = isBrowser ? localStorage.getItem('token') : null;
 
   const logout = async () => {
     const res = await postLogout(enqueueSnackbar);
