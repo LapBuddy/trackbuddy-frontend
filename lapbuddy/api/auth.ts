@@ -43,39 +43,45 @@ export const postLogin = async (
   return res;
 };
 
-// export const postSignup = async (
-//   username = "",
-//   password = "",
-//   enqueueSnackbar: EnqueueSnackbar
-// ) => {
-//   const res: LoginRes = await api
-//     .post(
-//       "api/login/",
-//       {
-//         username: username,
-//         password: password,
-//       },
-//       {
-//         withCredentials: true,
-//         headers: {
-//           "X-CSRFToken": await getCsrfToken(),
-//         },
-//       }
-//     )
-//     .catch(function (e) {
-//       if (e.response.status == 400) {
-//         for (const [field, messages] of Object.entries(e.response.data)) {
-//           enqueueSnackbar(field + ": " + messages);
-//         }
-//       } else {
-//         console.error(e.response.status, e.response.data);
-//       }
-//       return e;
-//     });
+export const postSignup = async (
+  username = "",
+  firstName = "",
+  lastName = "",
+  email = "",
+  password = "",
+  enqueueSnackbar: EnqueueSnackbar
+) => {
+  const res = await api
+    .post(
+      "api/register/",
+      {
+        username: username,
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+      },
+      {
+        withCredentials: true,
+        headers: {
+          "X-CSRFToken": await getCsrfToken(),
+        },
+      }
+    )
+    .catch(function (e) {
+      if (e.response.status == 400) {
+        for (const [field, messages] of Object.entries(e.response.data)) {
+          enqueueSnackbar(field + ": " + messages);
+        }
+      } else {
+        console.error(e.response.status, e.response.data);
+      }
+      return e.response;
+    });
 
-//   localStorage.setItem("token", "Token " + res.data.token);
-//   return res;
-// };
+  localStorage.setItem("token", "Token " + res.data.token);
+  return res;
+};
 
 export const postLogout = async (enqueueSnackbar: EnqueueSnackbar) => {
   const res = await api
