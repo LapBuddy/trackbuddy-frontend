@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { cn } from "@/app/utils/cn";
+import { cn } from '@/app/utils/cn';
 import { Label } from "@/app/login/label";
 import { Input } from "@/app/login/input";
 import "./auth.css";
@@ -25,12 +25,13 @@ export default function SignupForm() {
     }
   };
   return (
-    <div className="max-w-md w-full mx-auto mt-10 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-      <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to LapBuddy
+<div className="max-w-md w-full mx-auto mt-10 rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+        <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+        Welcome to LapBuddy!
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
-        Sign up to LapBuddy
+        Create an account to start tracking your data
+
       </p>
 
       <form className="my-8" onSubmit={handleSubmit}>
@@ -73,6 +74,8 @@ export default function SignupForm() {
         </button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        <div className="flex flex-col space-y-4">
+        </div>
       </form>
     </div>
   );
