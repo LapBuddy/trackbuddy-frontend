@@ -14,6 +14,8 @@ import {
 import { LampDemo } from '@/app/lamp/lamp';
 import { cn } from '@/app/utils/cn';
 import { postLogout } from '@/api/auth';
+import { useSnackbar } from 'notistack';
+import { useRouter } from 'next/navigation';
 
 export default function HomePage() {
     return (
@@ -90,6 +92,16 @@ const items = [
 
 function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
+  const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
+  const token = localStorage.getItem('token');
+
+  const logout = async () => {
+    const res = await postLogout(enqueueSnackbar);
+    if (res.status == 200) {
+      router.push('/authentication/signin');
+    }
+  }
   return (
     <div
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className) }
@@ -133,10 +145,17 @@ function Navbar({ className }: { className?: string }) {
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Account">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/setups/setups">My Account</HoveredLink>
-            <HoveredLink href="/authentication/signin">Log in</HoveredLink>
+            {token && 
+              <HoveredLink href="/setups/setups">My Account</HoveredLink>
+            }
+            {token == null && 
+              <HoveredLink href="/authentication/signin">Log in</HoveredLink>
+            }
             <HoveredLink href="/authentication/signup">Create an account</HoveredLink>
-            <HoveredLink href="/" onClick={postLogout}>Logout</HoveredLink>
+            {token && 
+              <HoveredLink href="/" onClick={logout}>Logout</HoveredLink>
+            }
+            
           </div>
         </MenuItem>
       </Menu>

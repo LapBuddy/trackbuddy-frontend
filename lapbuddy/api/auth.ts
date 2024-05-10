@@ -1,4 +1,4 @@
-import { Axios, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 import { EnqueueSnackbar } from "notistack";
 import api from "./api";
 
@@ -77,22 +77,29 @@ export const postLogin = async (
 //   return res;
 // };
 
-export interface LogoutRes extends AxiosResponse {
-  data: {
-    success: string;
-  };
-}
+export const postLogout = async (enqueueSnackbar: EnqueueSnackbar) => {
+  const res = await api
+    .post(
+      "api/logout/",
+      {},
+      {
+        headers: {
+          "X-CSRFToken": await getCsrfToken(),
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    )
+    .catch((e) => {
+      if (e.response.data.detail) {
+        enqueueSnackbar(e.response.data.detail);
+      } else {
+        enqueueSnackbar(e.response.data.toString());
+      }
+      return e.response;
+    });
 
-export const postLogout = async () => {
-  const { data }: LogoutRes = await api.post("api/logout/", {
-    withCredentials: true,
-    headers: {
-      "X-CSRFToken": await getCsrfToken(),
-      Authorization: localStorage.getItem("token"),
-    },
-  });
-
-  return data;
+  localStorage.removeItem("token");
+  return res;
 };
 
 export interface CsrfRes extends AxiosResponse {

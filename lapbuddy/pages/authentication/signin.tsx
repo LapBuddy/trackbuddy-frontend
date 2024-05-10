@@ -6,7 +6,7 @@ import { Input } from "@/app/login/input";
 import "./auth.css";
 import { postLogin } from "@/api/auth";
 import { useSnackbar } from "notistack";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 export default function SigninForm() {
   const [username, setUsername] = React.useState("");
