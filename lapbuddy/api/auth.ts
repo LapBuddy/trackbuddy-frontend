@@ -1,13 +1,6 @@
-import { AxiosResponse } from "axios";
 import { EnqueueSnackbar } from "notistack";
 import api from "./api";
-
-interface LoginRes extends AxiosResponse {
-  data: {
-    token: string;
-    expiry: string;
-  };
-}
+import { getCsrfToken } from "./utils";
 
 export const postLogin = async (
   username = "",
@@ -108,15 +101,3 @@ export const postLogout = async (enqueueSnackbar: EnqueueSnackbar) => {
   return res;
 };
 
-export interface CsrfRes extends AxiosResponse {
-  data: {
-    csrfToken: string;
-  };
-}
-
-export const getCsrfToken = async () => {
-  const { data }: CsrfRes = await api.get("api/csrf/", {
-    withCredentials: true,
-  });
-  return data.csrfToken;
-};

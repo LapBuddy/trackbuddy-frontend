@@ -90,7 +90,7 @@ const items = [
   },
 ];
 
-function Navbar({ className }: { className?: string }) {
+export function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
