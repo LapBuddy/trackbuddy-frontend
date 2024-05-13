@@ -11,13 +11,13 @@ export default function Setups() {
 
   const router = useRouter();
   const { enqueueSnackbar } = useSnackbar();
-  const [setups, setSetups] = React.useState(null);
+  const [setups, setSetups] = React.useState<any>(null);
 
   const handleClick = () => {
     router.push('/setups/create');
   }
 
-  const stringify = (setup) => {
+  const stringify = (setup: { name?: string | number | bigint | boolean | React.ReactPortal | Promise<React.AwaitedReactNode> | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined; make?: any; model?: any; year?: any; tires?: any; pressure?: any; suspension?: any; other?: any; }) => {
     // Create a string representation of the setup object
     // You can customize this based on your requirements
     // For example:
