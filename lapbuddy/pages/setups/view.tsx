@@ -18,9 +18,6 @@ export default function Setups() {
   }
 
   const stringify = (setup: { name?: string | number | bigint | boolean | React.ReactPortal | Promise<React.AwaitedReactNode> | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined; make?: any; model?: any; year?: any; tires?: any; pressure?: any; suspension?: any; other?: any; }) => {
-    // Create a string representation of the setup object
-    // You can customize this based on your requirements
-    // For example:
     return <div>
       <h2 className="text-sm font-bold text-neutral-800 dark:text-neutral-200">{setup.make} {setup.model} ({setup.year})</h2>
       <h3 className=" text-sm text-neutral-800 dark:text-neutral-200">Tires: {setup.tires} @{setup.pressure}</h3>

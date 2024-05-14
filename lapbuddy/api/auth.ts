@@ -1,4 +1,4 @@
-import { EnqueueSnackbar } from "notistack";
+import { EnqueueSnackbar, enqueueSnackbar } from "notistack";
 import api from "./api";
 import { getCsrfToken } from "./utils";
 
@@ -101,3 +101,52 @@ export const postLogout = async (enqueueSnackbar: EnqueueSnackbar) => {
   return res;
 };
 
+export const getProfile = async (enqueueSnackbar: EnqueueSnackbar) => {
+  const res = await api
+    .get("api/profile/", {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+    .catch((e) => {
+      if (e.response.data.detail) {
+        enqueueSnackbar(e.response.data.detail);
+      } else {
+        enqueueSnackbar(e.response.data.toString());
+      }
+      return e.response;
+    });
+  return res;
+};
+
+export const updateProfile = async (
+  first_name: string,
+  last_name: string,
+  email: string,
+  enqueueSnackbar: EnqueueSnackbar
+) => {
+  const res = await api
+    .put(
+      "api/profile/",
+      {
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+      },
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+          "X-CSRFToken": await getCsrfToken(),
+        },
+      }
+    )
+    .catch((e) => {
+      if (e.response.data.detail) {
+        enqueueSnackbar(e.response.data.detail);
+      } else {
+        enqueueSnackbar(e.response.data.toString());
+      }
+      return e.response;
+    });
+  return res;
+};
