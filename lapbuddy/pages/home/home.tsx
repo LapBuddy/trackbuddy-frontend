@@ -1,6 +1,11 @@
 "use client";
-import React, { useState } from 'react'
-import { HoveredLink, Menu, MenuItem, ProductItem } from '../../app/navbar/navbar-menu'
+import React, { useState } from "react";
+import {
+  HoveredLink,
+  Menu,
+  MenuItem,
+  ProductItem,
+} from "../../app/navbar/navbar-menu";
 import { BentoGrid, BentoGridItem } from "../../app/bentoGrid/bento-grid";
 import {
   IconArrowWaveRightUp,
@@ -11,34 +16,32 @@ import {
   IconSignature,
   IconTableColumn,
 } from "@tabler/icons-react";
-import { LampDemo } from '@/app/lamp/lamp';
-import { cn } from '@/app/utils/cn';
-import { postLogout } from '@/api/auth';
-import { useSnackbar } from 'notistack';
-import { useRouter } from 'next/navigation';
+import { LampDemo } from "@/app/lamp/lamp";
+import { cn } from "@/app/utils/cn";
+import { postLogout } from "@/api/auth";
+import { useSnackbar } from "notistack";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
-    return (
-        <div>
-              <Navbar className="top-2" />
-            <LampDemo />
+  return (
+    <div>
+      <Navbar className="top-2" />
+      <LampDemo />
 
-            <BentoGrid className="max-w-4xl mx-auto">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          icon={item.icon}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-        />
-      ))}
-    </BentoGrid>
-
-    
-        </div>
-      )
+      <BentoGrid className="max-w-4xl mx-auto">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            icon={item.icon}
+            className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+          />
+        ))}
+      </BentoGrid>
+    </div>
+  );
 }
 
 const Skeleton = () => (
@@ -94,40 +97,49 @@ export function Navbar({ className }: { className?: string }) {
   const [active, setActive] = useState<string | null>(null);
   const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
-  
-  const isBrowser = typeof window !== 'undefined';
-  const token = isBrowser ? localStorage.getItem('token') : null;
+
+  const isBrowser = typeof window !== "undefined";
+  const token = isBrowser ? localStorage.getItem("token") : null;
 
   const logout = async () => {
     const res = await postLogout(enqueueSnackbar);
     if (res.status == 200) {
-      router.push('/authentication/signin');
+      router.push("/authentication/signin");
     }
-  }
+  };
   return (
     <div
-      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className) }
+      className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)}
     >
       <Menu setActive={setActive}>
+        <HoveredLink href="/">Home</HoveredLink>
         <MenuItem setActive={setActive} active={active} item="Setups">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/setups/view">View Setups</HoveredLink>
-            <HoveredLink href="/setups/create">Create Setup</HoveredLink>
+            {token && (
+              <HoveredLink href="/setups/create">Create Setup</HoveredLink>
+            )}
           </div>
         </MenuItem>
+
         <MenuItem setActive={setActive} active={active} item="Account">
           <div className="flex flex-col space-y-4 text-sm">
-            {token && 
-              <HoveredLink href="/authentication/profile">My Account</HoveredLink>
-            }
-            {token == null && 
+            {token && (
+              <HoveredLink href="/authentication/profile">
+                My Account
+              </HoveredLink>
+            )}
+            {token == null && (
               <HoveredLink href="/authentication/signin">Log in</HoveredLink>
-            }
-            <HoveredLink href="/authentication/signup">Create an account</HoveredLink>
-            {token && 
-              <HoveredLink href="/" onClick={logout}>Logout</HoveredLink>
-            }
-            
+            )}
+            <HoveredLink href="/authentication/signup">
+              Create an account
+            </HoveredLink>
+            {token && (
+              <HoveredLink href="/" onClick={logout}>
+                Logout
+              </HoveredLink>
+            )}
           </div>
         </MenuItem>
       </Menu>

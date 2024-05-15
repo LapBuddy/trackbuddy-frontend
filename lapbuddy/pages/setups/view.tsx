@@ -27,14 +27,16 @@ export default function Setups() {
   }
 
   useEffect(() => {
-    getSetups(enqueueSnackbar)
-    .then((res) => {
-      console.log(res.data)
-      setSetups(res.data)
-      return;
+    if (localStorage.getItem('token')) {
+      getSetups(enqueueSnackbar)
+      .then((res) => {
+        setSetups(res.data)
+        return;
+      });
+    } else {
+      router.push('/authentication/signin')
     }
-    )
-  }, [enqueueSnackbar])
+  }, [enqueueSnackbar, router])
 
 
   return (
