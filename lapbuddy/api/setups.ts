@@ -68,3 +68,24 @@ export const getSetups = async (enqueueSnackbar: EnqueueSnackbar) => {
     });
   return res;
 };
+
+export const getMySetups = async (enqueueSnackbar: EnqueueSnackbar) => {
+  const res = await api
+    .get("api/mysetups/", {
+      withCredentials: true,
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+    .catch(function (e) {
+      if (e.response.status == 400) {
+        for (const [field, messages] of Object.entries(e.response.data)) {
+          enqueueSnackbar(field + ": " + messages);
+        }
+      } else {
+        console.error(e.response.status, e.response.data);
+      }
+      return e.response;
+    });
+  return res;
+};
