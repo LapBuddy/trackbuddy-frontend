@@ -7,6 +7,7 @@ import {
   ProductItem,
 } from "../../app/navbar/navbar-menu";
 import { BentoGrid, BentoGridItem } from "../../app/bentoGrid/bento-grid";
+import FileUploader from "../../app/sheetJS/FileUploader";
 import {
   IconArrowWaveRightUp,
   IconBoxAlignRightFilled,
@@ -26,14 +27,12 @@ export default function HomePage() {
       <Navbar className="top-2" />
       <LampDemo />
 
-      <h1
-        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text 
-       text-center text-4xl font-medium tracking-tight text-transparent md:text-5xl mb-4"
-      >
-        Lap Analysis
-      </h1>
+      <FileUploader />
 
-      <BentoGrid className="max-w-4xl mx-auto">
+      <br />
+
+      {/*       TODO use bento grid to display the car setups or something */}
+       <BentoGrid className="max-w-4xl mx-auto">
         {items.map((item, i) => (
           <BentoGridItem
             key={i}
@@ -44,7 +43,7 @@ export default function HomePage() {
             className={i === 3 || i === 6 ? "md:col-span-2" : ""}
           />
         ))}
-      </BentoGrid>
+      </BentoGrid> 
 
       <h1
         className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text 
