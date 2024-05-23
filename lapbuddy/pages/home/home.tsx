@@ -7,6 +7,7 @@ import {
   ProductItem,
 } from "../../app/navbar/navbar-menu";
 import { BentoGrid, BentoGridItem } from "../../app/bentoGrid/bento-grid";
+import FileUploader from "../../app/sheetJS/FileUploader";
 import {
   IconArrowWaveRightUp,
   IconBoxAlignRightFilled,
@@ -18,6 +19,7 @@ import {
 } from "@tabler/icons-react";
 import { LampDemo } from "@/app/lamp/lamp";
 import { cn } from "@/app/utils/cn";
+import { InfiniteMovingCards } from "@/app/moving-cards/infinite-moving-cards";
 import { postLogout } from "@/api/auth";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
@@ -27,8 +29,11 @@ export default function HomePage() {
     <div>
       <Navbar className="top-2" />
       <LampDemo />
+      <FileUploader />
+      <br />
 
-      <BentoGrid className="max-w-4xl mx-auto">
+      {/*       TODO use bento grid to display the car setups or something */}
+       <BentoGrid className="max-w-4xl mx-auto">
         {items.map((item, i) => (
           <BentoGridItem
             key={i}
@@ -39,7 +44,22 @@ export default function HomePage() {
             className={i === 3 || i === 6 ? "md:col-span-2" : ""}
           />
         ))}
-      </BentoGrid>
+      </BentoGrid> 
+
+      <h1
+        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text 
+       text-center text-4xl font-medium tracking-tight text-transparent md:text-5xl mb-4"
+      >
+        Interesting topics
+      </h1>
+
+      <InfiniteMovingCards
+        items={testimonials}
+        direction="right"
+        speed="slow"
+      />
+      <br />
+
     </div>
   );
 }
@@ -47,7 +67,42 @@ export default function HomePage() {
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
 );
+
+const testimonials = [
+  //these props can we changed to be dynamic with an API call, these items are for the infinite carousel
+  {
+    quote:
+      "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
+    name: "Charles Dickens",
+    title: "A Tale of Two Cities",
+  },
+  {
+    quote:
+      "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
+    name: "William Shakespeare",
+    title: "Hamlet",
+  },
+  {
+    quote: "All that we see or seem is but a dream within a dream.",
+    name: "Edgar Allan Poe",
+    title: "A Dream Within a Dream",
+  },
+  {
+    quote:
+      "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+    name: "Jane Austen",
+    title: "Pride and Prejudice",
+  },
+  {
+    quote:
+      "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+    name: "Herman Melville",
+    title: "Moby-Dick",
+  },
+];
+
 const items = [
+  //these props can we changed to be dynamic with an API call, these items are for the BentoGrid
   {
     title: "The Dawn of Innovation",
     description: "Explore the birth of groundbreaking ideas and inventions.",
@@ -121,9 +176,9 @@ export function Navbar({ className }: { className?: string }) {
             )}
           </div>
         </MenuItem>
-
         <MenuItem setActive={setActive} active={active} item="Account">
           <div className="flex flex-col space-y-4 text-sm">
+
             {token && (
               <HoveredLink href="/authentication/profile">
                 My Account

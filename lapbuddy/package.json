@@ -13,15 +13,19 @@
     "@tabler/icons-react": "^3.3.0",
     "axios": "^1.6.8",
     "clsx": "^2.1.1",
+    "csv": "^6.3.9",
     "framer-motion": "^11.1.9",
     "next": "14.2.3",
+    "papaparse": "^5.4.1",
     "notistack": "^3.0.1",
     "react": "^18",
     "react-dom": "^18",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.2/xlsx-0.20.2.tgz"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/papaparse": "^5.3.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.19",
